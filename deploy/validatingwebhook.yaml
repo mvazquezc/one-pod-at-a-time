@@ -1,0 +1,29 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: wh-one-pod-at-a-time
+  labels:
+    app: wh-one-pod-at-a-time
+webhooks:
+  - name: wh-one-pod-at-a-time.pod-res-wh.svc.cluster.local
+    admissionReviewVersions: ["v1", "v1beta1"]
+    clientConfig:
+      caBundle: changeme
+      service:
+        name: wh-one-pod-at-a-time
+        namespace: one-pod-at-a-time
+        path: "/validate"
+        port: 443
+    rules:
+      - operations: ["CREATE"]
+        apiGroups: [""]
+        apiVersions: ["v1"]
+        resources: ["pods"]
+    sideEffects: None
+    timeoutSeconds: 5
+    reinvocationPolicy: Never
+    failurePolicy: Ignore
+    namespaceSelector:
+      matchExpressions:
+        - {key: onepodatatime, operator: In, values: ["yes"]}
