@@ -70,7 +70,6 @@ func Validate(body []byte, verbose bool) ([]byte, error) {
                 var nonRunningPods []string
                 for _, listedPod := range pods.Items {
                         podStatus := listedPod.Status.Phase
-                        fmt.Printf("Pod: %s, status: %s", listedPod.Name, podStatus)
                         if (podStatus != "Running") {
                                 nonRunningPods = append(nonRunningPods, listedPod.Name)
                         }
