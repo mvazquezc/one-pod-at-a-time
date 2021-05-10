@@ -3,9 +3,9 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    validatepodresources: "yes"
+    onepodatatime: "yes"
   creationTimestamp: null
-  name: test-ns-validate
+  name: test-ns-onepodatatime
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -14,9 +14,9 @@ metadata:
   labels:
     app: reversewords
   name: reversewords
-  namespace: test-ns-validate
+  namespace: test-ns-onepodatatime
 spec:
-  replicas: 1
+  replicas: 10
   selector:
     matchLabels:
       app: reversewords
@@ -28,13 +28,7 @@ spec:
         app: reversewords
     spec:
       containers:
-      - image: quay.io/mavazque/trbsht:latest
+      - image: quay.io/mavazque/reversewords:latest
         name: reversewords
-        resources: 
-          requests:
-            cpu: 20
-            memory: "500M"
-          limits:
-            cpu: 20
-            memory: "500M"
+        resources: {}
 status: {}

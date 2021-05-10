@@ -23,7 +23,7 @@ webhooks:
     sideEffects: None
     timeoutSeconds: 5
     reinvocationPolicy: Never
-    failurePolicy: Ignore
+    failurePolicy: Fail
     namespaceSelector:
       matchExpressions:
         - {key: onepodatatime, operator: In, values: ["yes"]}
